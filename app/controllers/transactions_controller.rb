@@ -1,7 +1,11 @@
 class TransactionsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create]
 
-  def new
+  def debtor_new
+    @transaction = Transaction.new
+  end
+
+  def creditor_new
     @transaction = Transaction.new
   end
 
