@@ -1,4 +1,4 @@
-<%= form_for(@transaction) do |f| %>
+<%= form_for(@transaction, url: transactions_debtor_create_path) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
 
@@ -17,7 +17,7 @@
     <%= f.number_field :debt, class: "form-control" %> <br />
     
     <%= f.label :repayment, "返済済みかどうか" %> <br />
-    <%= f.check_box :repayment, {}, "false", "true"  %> <br />
+    <%= f.check_box :repayment, {}, "true", "false"  %> <br />
 
     <%= f.submit "作成"%>
   </div>

@@ -5,19 +5,31 @@ class TransactionsController < ApplicationController
     @transaction = Transaction.new
   end
 
-  def creditor_new
-    @transaction = Transaction.new
-  end
-
-  def create
+  def debtor_create
     @transaction = Transaction.new(transaction_params)
     if @transaction.save
       flash[:success] = "作成成功！"
       redirect_to root_url
     else
-      render 'new'
+      render 'debtor_new'
     end
   end
+
+  def creditor_new
+    @transaction = Transaction.new
+  end
+
+  def creditor_create
+    @transaction = Transaction.new(transaction_params)
+    if @transaction.save
+      flash[:success] = "作成成功！"
+      redirect_to root_url
+    else
+      render 'creditor_new'
+    end
+  end
+
+  
 
   private
 
