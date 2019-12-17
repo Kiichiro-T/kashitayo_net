@@ -40,8 +40,35 @@ class CreditorTransactionsController < ApplicationController
     redirect_to creditor_transactions_url
   end
 
+  def approval
+    @transaction = CreditorTransaction.find(params[:id])
+    @debtor = User.find(@transaction.debtor_id)
+    unless @transaction.creditor_id == current_user.id
+      redirect_to root_url
+    end
+  end
+
+  def approve_or_deny
+    @transaction = CreditorTransaction.find(params[:id])
+    if @transaction.update_attributes(approve_or_deny_transaction_params)
+      if @transaction.approval == true
+        flash[:success] = "承認しました"
+        redirect_to root_url
+      else @transaction.approval == false
+        flash[:success] = "拒否しました"
+        redirect_to root_url
+      end
+    else
+      render 'approval'
+    end
+  end
+
   private
     def transaction_params
       params.require(:creditor_transaction).permit(:debtor_id, :creditor_id, :debt, :repayment)
+    end
+
+    def approve_or_deny_transaction_params
+      params.require(:creditor_transaction).permit(:approval)
     end
 end

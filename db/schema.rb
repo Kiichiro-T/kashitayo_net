@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_17_044115) do
+ActiveRecord::Schema.define(version: 2019_12_17_104235) do
 
   create_table "creditor_transactions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "debtor_id"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 2019_12_17_044115) do
     t.boolean "repayment", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "approval"
     t.index ["creditor_id"], name: "index_creditor_transactions_on_creditor_id"
     t.index ["debtor_id"], name: "index_creditor_transactions_on_debtor_id"
   end
@@ -30,6 +31,7 @@ ActiveRecord::Schema.define(version: 2019_12_17_044115) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "creditor_id"
+    t.boolean "approval"
     t.index ["creditor_id"], name: "index_debtor_transactions_on_creditor_id"
     t.index ["debtor_id"], name: "index_debtor_transactions_on_debtor_id"
   end
