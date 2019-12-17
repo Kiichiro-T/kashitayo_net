@@ -42,6 +42,7 @@ class DebtorTransactionsController < ApplicationController
 
   def approval
     @transaction = DebtorTransaction.find(params[:id])
+    @creditor = User.find(@transaction.creditor_id)
     unless @transaction.debtor_id == current_user.id
       redirect_to root_url
     end

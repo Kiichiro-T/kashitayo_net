@@ -1,3 +1,7 @@
+<h2><%= @debtor.name %>さんからあなたに以下の内容で承認依頼が届いています！</h2>
+
+<h4>・<%= @debtor.name %> さんが あなたから <%= @transaction.debt %> 円 を借りている</h4>
+
 <%= form_for(@transaction, url: approve_or_deny_creditor_transaction_path) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
