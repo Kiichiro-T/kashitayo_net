@@ -11,7 +11,7 @@ class DebtorTransactionsController < ApplicationController
         flash[:success] = "作成成功！"
         redirect_to root_url
       else
-        render 'debtor_new'
+        render 'new'
       end
     end
 

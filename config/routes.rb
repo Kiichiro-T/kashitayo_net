@@ -3,4 +3,5 @@ Rails.application.routes.draw do
   get 'basic_pages/home'
   devise_for :users
   resources :debtor_transactions, only: [:new, :create]
+  resources :creditor_transactions, only: [:new, :create]
 end
