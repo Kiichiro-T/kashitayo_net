@@ -1,11 +1,27 @@
 <h2><%= current_user.name %>さんが借りた記録</h4>
+<% i = 0 %>
 <% if @transactions.any? %>
   <% @transactions.each do |transaction| %>
-    <% debtor = User.find(transaction.debtor_id) %>
-    <p>借りた人：　　<%= debtor.name %></p>
+    <% creditor = User.find(transaction.creditor_id) %>
+    <p>借りた人：　　<%= creditor.name %></p>
     <p>借りた金額：　<%= transaction.debt %></p>
     <p><%= link_to "編集", edit_creditor_transaction_path(id: transaction.id) %></p>
     <p><%= link_to "削除", creditor_transaction_path(id: transaction.id), method: :delete %></p>
+    <% if transaction.approval.nil? %>
+      <% i += 1 %>
+      <textarea id="creditor-clipboard-<%= current_user.id %>-<%= i %>">
+        <%= "#{approval_creditor_transaction_url(id: transaction.id)}" %>
+      </textarea>
+      <button class="btn btn-secondary clipboard-btn" data-clipboard-action="copy" data-clipboard-target="#creditor-clipboard-<%= current_user.id %>-<%= i %>">
+        承認用のリンクをコピー
+      </button>
+    <% else %>
+      <% if transaction.approval %>
+        <p>承認済み</p>
+      <% else %>        
+        <p>拒否されました</p>
+      <% end %>
+    <% end %>
     <hr>
   <% end %>
 <% else %>

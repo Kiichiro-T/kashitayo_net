@@ -62,18 +62,6 @@ class DebtorTransactionsController < ApplicationController
     end
   end
 
-=begin
-  def deny
-    @transaction = DebtorTransaction.find(params[:id])
-    if @transaction.update_attributes(approve_or_deny_transaction_params)
-      flash[:success] = "拒否しました"
-      redirect_to root_url
-    else
-      render 'approval'
-    end
-  end
-=end
-
   private
 
     def transaction_params

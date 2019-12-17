@@ -1,0 +1,12 @@
+<%= form_for(@transaction, url: approve_or_deny_creditor_transaction_path) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <div class="field">
+   
+    <%= f.label :approval, "承認" %>
+    <%= f.radio_button :approval, true %> <br />
+    <%= f.label :approval, "拒否" %>
+    <%= f.radio_button :approval, false %> <br />
+  
+    <%= f.submit "送信"%>
+  </div>
+<% end %>

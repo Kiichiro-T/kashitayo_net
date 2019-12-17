@@ -9,10 +9,10 @@
     <p><%= link_to "削除", debtor_transaction_path(id: transaction.id), method: :delete %></p>
     <% if transaction.approval.nil? %>
       <% i += 1 %>
-      <textarea id="debtor-clipboard-<%= i %>">
+      <textarea id="debtor-clipboard-<%= current_user.id %>-<%= i %>">
         <%= "#{approval_debtor_transaction_url(id: transaction.id)}" %>
       </textarea>
-      <button class="btn btn-secondary clipboard-btn" data-clipboard-action="copy" data-clipboard-target="#debtor-clipboard-<%= i %>">
+      <button class="btn btn-secondary clipboard-btn" data-clipboard-action="copy" data-clipboard-target="#debtor-clipboard-<%= current_user.id %>-<%= i %>">
         承認用のリンクをコピー
       </button>
     <% else %>
