@@ -1,0 +1,23 @@
+<%= form_for(@transaction, url: debtor_transactions_path) do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
+    <div class="field">
+  
+      <%= f.hidden_field :creditor_id, :value => current_user.id %>
+  
+      <%= f.label :debtor_id, "貸す相手" %> <br />
+      <%= f.select :debtor_id,
+            options_from_collection_for_select(User.where.not(id: current_user.id), :id, :name),
+            {
+            class: "form-control", :prompt => "選択できます"
+            } 
+      %><br />
+  
+      <%= f.label :debt, "金額" %> <br />
+      <%= f.number_field :debt, class: "form-control" %> <br />
+      
+      <%= f.label :repayment, "返済済みかどうか" %> <br />
+      <%= f.check_box :repayment, {}, "true", "false"  %> <br />
+  
+      <%= f.submit "作成"%>
+    </div>
+  <% end %>

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  debtor: one
+  debt: 1
+  repayment: false
+
+two:
+  debtor: two
+  debt: 1
+  repayment: false
