@@ -1,5 +1,6 @@
 class DebtorTransactionsController < ApplicationController
   before_action :authenticate_user!, only: [:index, :new, :create, :edit, :update]
+  before_action :different_user_or_already_approve_deny_redirect_root, only: [:approval, :approve_or_deny]
 
   def index
     @transactions = DebtorTransaction.where(creditor_id: current_user.id)
@@ -41,15 +42,10 @@ class DebtorTransactionsController < ApplicationController
   end
 
   def approval
-    @transaction = DebtorTransaction.find(params[:id])
     @creditor = User.find(@transaction.creditor_id)
-    unless @transaction.debtor_id == current_user.id
-      redirect_to root_url
-    end
   end
 
-  def approve_or_deny
-    @transaction = DebtorTransaction.find(params[:id])
+  def approve_or_deny  
     if @transaction.update_attributes(approve_or_deny_transaction_params)
       if @transaction.approval == true
         flash[:success] = "承認しました"
@@ -71,5 +67,16 @@ class DebtorTransactionsController < ApplicationController
 
     def approve_or_deny_transaction_params
       params.require(:debtor_transaction).permit(:approval)
+    end
+
+    def different_user_or_already_approve_deny_redirect_root
+      @transaction = DebtorTransaction.find(params[:id])
+        if @transaction.debtor_id != current_user.id
+          redirect_to root_url
+        elsif @transaction.approval == true
+          redirect_to root_url
+        elsif @transaction.approval == false
+          redirect_to root_url
+        end
     end
 end
