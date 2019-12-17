@@ -2,5 +2,6 @@ Rails.application.routes.draw do
   root 'basic_pages#home'
   get 'basic_pages/home'
   devise_for :users
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  resources :debtor_transactions, only: [:new, :create]
+  resources :creditor_transactions, only: [:new, :create]
 end
