@@ -11,6 +11,17 @@
 // about supported directives.
 //
 //= require rails-ujs
+//= require jquery
+//= require bootstrap
 //= require activestorage
 //= require turbolinks
 //= require_tree .
+
+//= require clipboard
+
+$(document).ready(function(){  
+
+  var clipboard = new Clipboard('.clipboard-btn');
+  console.log(clipboard);
+  
+});
