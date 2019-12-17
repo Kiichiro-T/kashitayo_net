@@ -1,0 +1,11 @@
+<h2><%= current_user.name %>さんが借りた記録</h4>
+<% if @transactions.any? %>
+  <% @transacions.each do |transaction| %>
+    <% debtor = User.find(transaction.debtor_id) %>
+    <p>借りた人：　　<%= debtor.name %></p>
+    <p>借りた金額：　<%= transaction.debt %></p>
+    <hr>
+  <% end %>
+<% else %>
+  <p>現在借りていません！</p>
+<% end %>
