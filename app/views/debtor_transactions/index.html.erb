@@ -4,6 +4,7 @@
     <% debtor = User.find(transaction.debtor_id) %>
     <p>貸した人：　　<%= debtor.name %></p>
     <p>貸した金額：　<%= transaction.debt %></p>
+    <p><%= link_to "編集", edit_debtor_transaction_path(id: transaction.id) %></p>
     <hr>
   <% end %>
 <% else %>

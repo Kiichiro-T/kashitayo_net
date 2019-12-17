@@ -1,5 +1,5 @@
 class CreditorTransactionsController < ApplicationController
-  before_action :authenticate_user!, only: [:index, :new, :create]
+  before_action :authenticate_user!, only: [:index, :new, :create, :edit, :update]
   
   def index
     @transactions = CreditorTransaction.where(debtor_id: current_user.id)
@@ -16,6 +16,20 @@ class CreditorTransactionsController < ApplicationController
       redirect_to root_url
     else
       render 'new'
+    end
+  end
+
+  def edit
+    @transaction = CreditorTransaction.find(params[:id])
+  end
+
+  def update
+    @transaction = CreditorTransaction.find(params[:id])
+    if @transaction.update_attributes(transaction_params)
+      flash[:success] = "編集に成功しました"
+      redirect_to root_url
+    else
+      render 'edit'
     end
   end
 
