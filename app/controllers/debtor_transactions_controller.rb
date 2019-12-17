@@ -1,5 +1,5 @@
 class DebtorTransactionsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create]
+  before_action :authenticate_user!, only: [:index, :new, :create]
 
   def index
     @transactions = DebtorTransaction.where(creditor_id: current_user.id)
