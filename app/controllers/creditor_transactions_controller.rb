@@ -1,5 +1,6 @@
 class CreditorTransactionsController < ApplicationController
   before_action :authenticate_user!, only: [:index, :new, :create, :edit, :update, :destroy]
+  before_action :different_user_or_already_approve_deny_redirect_root, only: [:approval, :approve_or_deny]
   
   def index
     @transactions = CreditorTransaction.where(debtor_id: current_user.id)
@@ -41,11 +42,7 @@ class CreditorTransactionsController < ApplicationController
   end
 
   def approval
-    @transaction = CreditorTransaction.find(params[:id])
     @debtor = User.find(@transaction.debtor_id)
-    unless @transaction.creditor_id == current_user.id
-      redirect_to root_url
-    end
   end
 
   def approve_or_deny
@@ -70,5 +67,16 @@ class CreditorTransactionsController < ApplicationController
 
     def approve_or_deny_transaction_params
       params.require(:creditor_transaction).permit(:approval)
+    end
+
+    def different_user_or_already_approve_deny_redirect_root
+      @transaction = CreditorTransaction.find(params[:id])
+        if @transaction.creditor_id != current_user.id
+          redirect_to root_url
+        elsif @transaction.approval == true
+          redirect_to root_url
+        elsif @transaction.approval == false
+          redirect_to root_url
+        end
     end
 end
