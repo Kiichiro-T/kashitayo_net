@@ -6,6 +6,15 @@
     <p>貸した金額：　<%= transaction.debt %></p>
     <p><%= link_to "編集", edit_debtor_transaction_path(id: transaction.id) %></p>
     <p><%= link_to "削除", debtor_transaction_path(id: transaction.id), method: :delete %></p>
+    <% if transaction.approval.nil? %>
+      <p>承認待ち</p>
+    <% else %>
+      <% if transaction.approval %>
+        <p>承認済み</p>
+      <% else %>        
+        <p>拒否されました</p>
+      <% end %>
+    <% end %>
     <hr>
   <% end %>
 <% else %>
