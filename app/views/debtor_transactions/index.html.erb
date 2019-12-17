@@ -5,6 +5,7 @@
     <p>貸した人：　　<%= debtor.name %></p>
     <p>貸した金額：　<%= transaction.debt %></p>
     <p><%= link_to "編集", edit_debtor_transaction_path(id: transaction.id) %></p>
+    <p><%= link_to "削除", debtor_transaction_path(id: transaction.id), method: :delete %></p>
     <hr>
   <% end %>
 <% else %>

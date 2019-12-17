@@ -13,7 +13,7 @@ class DebtorTransactionsController < ApplicationController
     @transaction = DebtorTransaction.new(transaction_params)
     if @transaction.save
       flash[:success] = "作成成功！"
-      redirect_to root_url
+      redirect_to debtor_transactions_url
     else
       render 'new'
     end
@@ -27,10 +27,17 @@ class DebtorTransactionsController < ApplicationController
     @transaction = DebtorTransaction.find(params[:id])
     if @transaction.update_attributes(transaction_params)
       flash[:success] = "編集に成功しました"
-      redirect_to root_url
+      redirect_to debtor_transactions_url
     else
       render 'edit'
     end
+  end
+
+  def destroy
+    @transaction = DebtorTransaction.find(params[:id])
+    @transaction.destroy
+    flash[:success] = "削除しました"
+    redirect_to debtor_transactions_url
   end
 
   private
